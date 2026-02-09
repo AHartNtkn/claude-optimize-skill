@@ -42,7 +42,7 @@ Read this file and include its contents in each worker's prompt (workers cannot 
 1. **Worktree isolation**: Each worker gets `../<project>-opt-<slug>`. Failed attempts are deleted cleanly via `git worktree remove`.
 2. **Statistical rigor**: Mann-Whitney U test with N=10 interleaved runs. U >= 73 (p < 0.05) required to KEEP.
 3. **Regression checking**: Primary workload improvement AND no regression on secondary workloads.
-4. **Speculation encouraged**: Architectural redesigns are explicitly in scope — worktree isolation makes them safe.
+4. **Ambitious changes over micro-optimizations**: Architectural redesigns, algorithmic changes, and speculative rewrites are ALWAYS preferred over safe data-layout tweaks, struct shrinking, or enum rearranging. **When the profile shows that structural overhead has been eliminated and the remaining time is dominated by actual computation, the next candidates MUST be algorithmic or architectural — not more micro-optimizations.** A risky candidate with 10% estimated ROI is more valuable than a safe candidate with 2% ROI. Worktrees exist precisely to make risky changes cheap to attempt and discard. If you find yourself proposing only data-layout or allocation changes for 2+ consecutive rounds, STOP and force yourself to generate architectural candidates instead.
 5. **Self-improvement**: After each round, review worker outcomes for protocol gaps or recurring problems. Update the worker agent spec, workflow docs, or reference files to prevent future issues.
 6. **Post-merge cleanup**: After merging a winner, run fmt + lint fix + remove dead code before committing. The merged code must be cleaner than what the worker produced.
 7. **Concurrent limits**: Maximum 3 workers at a time (respects 6-agent system limit).

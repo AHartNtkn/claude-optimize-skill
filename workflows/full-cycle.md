@@ -56,7 +56,7 @@ For each candidate, provide:
 - **Files**: which source files will be modified
 - **Brief**: 2-3 paragraph investigation brief for the worker agent
 
-Rank by estimated ROI × probability of success. Select the top 2-3 candidates for dispatch.
+**Ranking: Ambitious changes first, always.** Rank primarily by estimated ROI, not by probability of success or implementation difficulty. Architectural redesigns, algorithmic improvements, and speculative rewrites are ALWAYS preferred over safe micro-optimizations (data-layout tweaks, struct shrinking, boxing, allocation shuffling). If the profile shows remaining time is dominated by actual computation rather than structural overhead, ALL candidates MUST be algorithmic or architectural — do not propose more micro-optimizations. Failed attempts in worktrees cost nothing, but avoiding ambitious changes means leaving the largest improvements on the table. Only deprioritize a high-ROI candidate if it is fundamentally unmeasurable or would take an impractical amount of worker time. Select the top 2-3 candidates for dispatch.
 
 ### Step 3: BUILD BASELINE
 
